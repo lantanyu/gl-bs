@@ -61,8 +61,14 @@ export default {
 				  headers: {'token': window.localStorage.getItem('token')},
 				}).then(response => {
 					if(response.data.code==200){
-						this.fenlei1id = response.data.data[0].fenlei1id
-						this.fenlei = response.data.data
+						if(response.data.data.length!=0){
+							this.fenlei1id = response.data.data[0].fenlei1id
+							this.fenlei = response.data.data
+						}else {
+							this.fenlei = response.data.data
+							this.fenlei1id = this.$route.query.fenlei1id
+						}
+						
 					}else {
 						this.notifyError(response.data.message);
 					}
